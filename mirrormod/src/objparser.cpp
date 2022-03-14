@@ -23,6 +23,7 @@ namespace mirrormod
 
 			return out;
 		};
+
 		auto getCode = [](std::string prefix) // Some .obj definitions not supported yet
 		{
 			if (prefix.compare("o") == 0)

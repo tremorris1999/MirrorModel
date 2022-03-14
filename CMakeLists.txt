@@ -2,4 +2,7 @@
 
 project ("MirrorModel")
 
+enable_testing()
+
 add_subdirectory ("mirrormod")
+add_subdirectory ("tests")
