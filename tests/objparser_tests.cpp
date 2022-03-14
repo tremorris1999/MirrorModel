@@ -11,4 +11,6 @@ int main(void)
 		|| meshes[0].normals.size() != 3
 		|| meshes[0].indices.size() != 3)
 		return -1;
+
+	return 0;
 }
