@@ -12,5 +12,8 @@ namespace mirrormod
 		std::vector<unsigned int> indices;
 	};
 
+	bool writeMir(std::string path, std::vector<mesh_t> &meshes);
+
+	bool parseMir(std::string path, std::vector<mesh_t> &meshes);
 	bool parseObj(std::string path, std::vector<mesh_t> &meshes);
 }

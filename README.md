@@ -5,6 +5,7 @@ Intended for use in my personal project [tremorris1999](https://github.com/tremo
 
 # Supported file types:
 **Note:** this may be an ever-evolving list.
+- [x] Custom Mirror Model (.mir)
 - [x] [Wavefront](https://en.wikipedia.org/wiki/Wavefront_.obj_file) (.obj) *
 - [ ] [glTF](https://www.khronos.org/gltf/)
 
