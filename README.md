@@ -1,4 +1,5 @@
 # MirrorModel
+[![CMake](https://github.com/tremorris1999/MirrorModel/actions/workflows/cmake.yml/badge.svg?branch=main)](https://github.com/tremorris1999/MirrorModel/actions/workflows/cmake.yml)
 ### A *(hopefully)* cross-platform C++ Model loading library.
 Intended for use in my personal project [tremorris1999](https://github.com/tremorris1999)/[Mirror](https://github.com/tremorris1999/Mirror), but feel free to use/contribute if it suits you.  
 
@@ -11,7 +12,7 @@ Intended for use in my personal project [tremorris1999](https://github.com/tremo
 
 # Tested Platforms:
 **Note:** These are only the platforms I *currently* have personal access to without setting up new testing environments. Feel free to test your platform and have me add it to the list!
-- [ ] Windows 10
+- [x] Windows 10
 - [ ] Fedora 35
 
 # API
