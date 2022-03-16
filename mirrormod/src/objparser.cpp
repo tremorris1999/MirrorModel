@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <sstream>
 #include <string>
 
 namespace mirrormod
@@ -48,6 +49,9 @@ namespace mirrormod
 			return false;
 		}
 
+		std::stringstream loadedFileStream;
+		loadedFileStream << fileStream.rdbuf();
+
 		std::vector<float> temp_vertices;
 		std::vector<float> temp_normals;
 		std::vector<float> temp_textures;
@@ -56,7 +60,7 @@ namespace mirrormod
 		mesh_t mesh;
 
 		std::string line;
-		while (std::getline(fileStream, line))
+		while (std::getline(loadedFileStream, line))
 		{
 			if (line.compare("") == 0)
 				continue;
