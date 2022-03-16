@@ -48,12 +48,15 @@ namespace mirrormod
 			return false;
 		}
 
+		std::vector<float> temp_vertices;
+		std::vector<float> temp_normals;
+		std::vector<float> temp_textures;
+
 		bool first = true;
 		mesh_t mesh;
 		std::vector<float> vertices;
 		std::vector<float> normals;
 		std::vector<float> textures;
-		std::vector<unsigned int> indices;
 
 		std::string line;
 		while (std::getline(fileStream, line))
@@ -70,46 +73,70 @@ namespace mirrormod
 					break;
 				}
 
-				mesh.vertices = vertices;
-				mesh.normals = normals;
-				mesh.textures = textures;
-				mesh.indices = indices;
 				meshes.push_back(mesh);
-
-				vertices.clear();
-				normals.clear();
-				textures.clear();
-				indices.clear();
+				temp_vertices.clear();
+				temp_normals.clear();
+				temp_textures.clear();
 				break;
 
 			case 1: // v
-				vertices.push_back(std::stof(split_line[1]));
-				vertices.push_back(std::stof(split_line[2]));
-				vertices.push_back(std::stof(split_line[3]));
+				temp_vertices.push_back(std::stof(split_line[1]));
+				temp_vertices.push_back(std::stof(split_line[2]));
+				temp_vertices.push_back(std::stof(split_line[3]));
 				break;
 
 			case 2: // vn
-				normals.push_back(std::stof(split_line[1]));
-				normals.push_back(std::stof(split_line[2]));
-				normals.push_back(std::stof(split_line[3]));
+				temp_normals.push_back(std::stof(split_line[1]));
+				temp_normals.push_back(std::stof(split_line[2]));
+				temp_normals.push_back(std::stof(split_line[3]));
 				break;
 
 			case 3: // vt
-				textures.push_back(std::stof(split_line[1]));
-				textures.push_back(std::stof(split_line[2]));
+				temp_textures.push_back(std::stof(split_line[1]));
+				temp_textures.push_back(std::stof(split_line[2]));
 				break;
 
 			case 4: // f
-				for (size_t i = 1; i < split_line.size(); i++)
+				for (size_t f = 1; f < split_line.size(); f++)
 				{
-					std::vector<std::string> index_split;
-					index_split = split(split_line[i], "//");
+					std::vector<std::string> split_face = split(split_line[f], "/");
+					std::vector<float> position;
+					std::vector<float> uv;
+					std::vector<float> normal;
+					size_t v_idx = static_cast<size_t>(std::stoi(split_face[0])) - 1;
+					size_t t_idx = -1;
+					size_t n_idx = -1;
 
-					if (index_split.size() == 1)
-						index_split = split(split_line[i], "/");
+					if (split_face.size() == 3)
+					{
+						t_idx = split_face[1].compare("") == 0 ? -1 : static_cast<size_t>(std::stoi(split_face[1])) - 1;
+						n_idx = static_cast<size_t>(std::stoi(split_face[2])) - 1;
+					}
+					else if (split_face.size() == 2)
+					{
+						t_idx = static_cast<size_t>(std::stoi(split_face[1])) - 1;
+					}
 
-					indices.push_back(std::stoi(index_split[0]));
+					position.push_back(temp_vertices[3 * v_idx]);
+					position.push_back(temp_vertices[3 * v_idx + 1]);
+					position.push_back(temp_vertices[3 * v_idx + 2]);
+
+					if (t_idx != -1)
+					{
+						uv.push_back(temp_textures[2 * t_idx]);
+						uv.push_back(temp_textures[2 * t_idx + 1]);
+					}
+
+					if (n_idx != -1)
+					{
+						normal.push_back(temp_normals[3 * n_idx]);
+						normal.push_back(temp_normals[3 * n_idx + 1]);
+						normal.push_back(temp_normals[3 * n_idx + 2]);
+					}
+
+					mesh.vertices.push_back(vertex_t{ position, uv, normal });
 				}
+
 				break;
 
 			default:
@@ -117,11 +144,8 @@ namespace mirrormod
 			}
 		}
 
-		mesh.vertices = vertices;
-		mesh.normals = normals;
-		mesh.textures = textures;
-		mesh.indices = indices;
 		meshes.push_back(mesh);
+		fileStream.close();
 		return true;
 	}
 }

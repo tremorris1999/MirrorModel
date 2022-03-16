@@ -4,12 +4,16 @@
 
 namespace mirrormod
 {
+	struct vertex_t
+	{
+		std::vector<float> position;
+		std::vector<float> uv;
+		std::vector<float> normal;
+	};
+
 	struct mesh_t
 	{
-		std::vector<float> vertices;
-		std::vector<float> normals;
-		std::vector<float> textures;
-		std::vector<unsigned int> indices;
+		std::vector<vertex_t> vertices;
 	};
 
 	bool writeMir(std::string path, std::vector<mesh_t> &meshes);
