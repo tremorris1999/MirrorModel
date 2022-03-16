@@ -40,7 +40,7 @@ namespace mirrormod
 				return -1;
 		};
 
-		std::fstream fileStream;
+		std::ifstream fileStream;
 		fileStream.open(path);
 		if (!fileStream.is_open())
 		{
@@ -54,13 +54,13 @@ namespace mirrormod
 
 		bool first = true;
 		mesh_t mesh;
-		std::vector<float> vertices;
-		std::vector<float> normals;
-		std::vector<float> textures;
 
 		std::string line;
 		while (std::getline(fileStream, line))
 		{
+			if (line.compare("") == 0)
+				continue;
+
 			std::vector<std::string> split_line = split(line, " ");
 			std::string prefix = split_line[0];
 
@@ -74,9 +74,6 @@ namespace mirrormod
 				}
 
 				meshes.push_back(mesh);
-				temp_vertices.clear();
-				temp_normals.clear();
-				temp_textures.clear();
 				break;
 
 			case 1: // v

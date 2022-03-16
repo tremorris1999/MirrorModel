@@ -17,21 +17,21 @@ namespace mirrormod
 		}
 
 		fileStream << meshes.size() << std::endl;
-		for (size_t m = 0; m < meshes.size(); m++)
+		for (mesh_t mesh : meshes)
 		{
-			mesh_t mesh = meshes[m];
-
-			//fileStream << mesh.vertices.size() << std::endl;
-			//for (size_t v = 0; v < mesh.vertices.size(); v++)
-			//	fileStream << mesh.vertices[v] << std::endl;
-
-			//fileStream << mesh.textures.size() << std::endl;
-			//for (size_t vt = 0; vt < mesh.textures.size(); vt++)
-			//	fileStream << mesh.textures[vt] << std::endl;
-
-			//fileStream << mesh.normals.size() << std::endl;
-			//for (size_t vn = 0; vn < mesh.normals.size(); vn++)
-			//	fileStream << mesh.normals[vn] << std::endl;
+			fileStream << mesh.vertices.size() << std::endl;
+			for (vertex_t vertex : mesh.vertices)
+			{
+				fileStream << vertex.position.size() << std::endl;
+				for (float f : vertex.position)
+					fileStream << f << std::endl;
+				fileStream << vertex.uv.size() << std::endl;
+				for (float f : vertex.uv)
+					fileStream << f << std::endl;
+				fileStream << vertex.normal.size() << std::endl;
+				for (float f : vertex.normal)
+					fileStream << f << std::endl;
+			}
 		}
 
 		fileStream.close();
