@@ -11,7 +11,7 @@ int main(void)
 
 	if (!parseMir("test.mir", mir_meshes))
 		return -1;
-
+	
 	mesh_t m0 = meshes[0];
 	mesh_t m1 = mir_meshes[0];
 	if (m0.vertices.size() != m1.vertices.size())
