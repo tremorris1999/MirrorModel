@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 namespace mirrormod
 {
@@ -16,24 +17,27 @@ namespace mirrormod
 			return false;
 		}
 
-		fileStream << meshes.size() << std::endl;
+		std::stringstream stringStream;
+
+		stringStream << meshes.size() << std::endl;
 		for (mesh_t mesh : meshes)
 		{
-			fileStream << mesh.vertices.size() << std::endl;
+			stringStream << mesh.vertices.size() << std::endl;
 			for (vertex_t vertex : mesh.vertices)
 			{
-				fileStream << vertex.position.size() << std::endl;
+				stringStream << vertex.position.size() << std::endl;
 				for (float f : vertex.position)
-					fileStream << f << std::endl;
-				fileStream << vertex.uv.size() << std::endl;
+					stringStream << f << std::endl;
+				stringStream << vertex.uv.size() << std::endl;
 				for (float f : vertex.uv)
-					fileStream << f << std::endl;
-				fileStream << vertex.normal.size() << std::endl;
+					stringStream << f << std::endl;
+				stringStream << vertex.normal.size() << std::endl;
 				for (float f : vertex.normal)
-					fileStream << f << std::endl;
+					stringStream << f << std::endl;
 			}
 		}
 
+		fileStream << stringStream.rdbuf();
 		fileStream.close();
 		return true;
 	}
