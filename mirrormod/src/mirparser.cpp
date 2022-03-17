@@ -24,7 +24,7 @@ namespace mirrormod
 
 		int num_meshes = std::stoi(line);
 		std::getline(loadedFileStream, line);
-		for (size_t m = 0; m < num_meshes; m++)
+		for (size_t m = 0; m < num_meshes; m++) 
 		{
 			mesh_t mesh;
 			int num_vertices = std::stoi(line);
