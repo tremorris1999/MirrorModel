@@ -78,6 +78,9 @@ namespace mirrormod
 				}
 
 				meshes.push_back(mesh);
+				mesh.position.clear();
+				mesh.uv.clear();
+				mesh.normal.clear();
 				break;
 
 			case 1: // v
@@ -101,9 +104,7 @@ namespace mirrormod
 				for (size_t f = 1; f < split_line.size(); f++)
 				{
 					std::vector<std::string> split_face = split(split_line[f], "/");
-					std::vector<float> position;
-					std::vector<float> uv;
-					std::vector<float> normal;
+
 					size_t v_idx = static_cast<size_t>(std::stoi(split_face[0])) - 1;
 					size_t t_idx = -1;
 					size_t n_idx = -1;
@@ -118,24 +119,22 @@ namespace mirrormod
 						t_idx = static_cast<size_t>(std::stoi(split_face[1])) - 1;
 					}
 
-					position.push_back(temp_vertices[3 * v_idx]);
-					position.push_back(temp_vertices[3 * v_idx + 1]);
-					position.push_back(temp_vertices[3 * v_idx + 2]);
+					mesh.position.push_back(temp_vertices[3 * v_idx]);
+					mesh.position.push_back(temp_vertices[3 * v_idx + 1]);
+					mesh.position.push_back(temp_vertices[3 * v_idx + 2]);
 
 					if (t_idx != -1)
 					{
-						uv.push_back(temp_textures[2 * t_idx]);
-						uv.push_back(temp_textures[2 * t_idx + 1]);
+						mesh.uv.push_back(temp_textures[2 * t_idx]);
+						mesh.uv.push_back(temp_textures[2 * t_idx + 1]);
 					}
 
 					if (n_idx != -1)
 					{
-						normal.push_back(temp_normals[3 * n_idx]);
-						normal.push_back(temp_normals[3 * n_idx + 1]);
-						normal.push_back(temp_normals[3 * n_idx + 2]);
+						mesh.normal.push_back(temp_normals[3 * n_idx]);
+						mesh.normal.push_back(temp_normals[3 * n_idx + 1]);
+						mesh.normal.push_back(temp_normals[3 * n_idx + 2]);
 					}
-
-					mesh.vertices.push_back(vertex_t{ position, uv, normal });
 				}
 
 				break;

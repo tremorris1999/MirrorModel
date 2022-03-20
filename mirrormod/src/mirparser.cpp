@@ -50,7 +50,7 @@ namespace mirrormod
 				for (size_t n = 0; n < num_normals; n++, std::getline(loadedFileStream, line))
 					normals.push_back(std::stof(line));
 
-				mesh.vertices.push_back(vertex_t{ positions, uvs, normals });
+				// parse
 			}
 
 			meshes.push_back(mesh);
