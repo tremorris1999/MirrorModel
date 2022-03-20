@@ -20,7 +20,24 @@ namespace mirrormod
 		std::stringstream stringStream;
 
 		stringStream << meshes.size() << std::endl;
-		
+		for (mesh_t mesh : meshes)
+		{
+			stringStream << mesh.position.size() << std::endl;
+			for (float f : mesh.position)
+				stringStream << f << std::endl;
+
+			stringStream << mesh.uv.size() << std::endl;
+			for (float f : mesh.uv)
+				stringStream << f << std::endl;
+
+			stringStream << mesh.normal.size() << std::endl;
+			for (float f : mesh.normal)
+				stringStream << f << std::endl;
+		}
+
+		fileStream << stringStream.rdbuf();
+		fileStream.close();
+
 		return true;
 	}
 }

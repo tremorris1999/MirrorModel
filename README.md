@@ -17,18 +17,11 @@ Intended for use in my personal project [tremorris1999](https://github.com/tremo
 - [ ] Fedora 35
 
 # API
-Currently, I'm taking an approach focused entirely on integrating into my personal project. Thus the parser(s) have only one standardized output type (for now): *mesh_t*, which will utilize the type *vertex_t*.
+Currently, I'm taking an approach focused entirely on integrating into my personal project. Thus the parser(s) have only one standardized output type (for now): *mesh_t*.
 
 *mirrormod::mesh_t:*
 ```cpp
 struct mesh_t
-{
-	std::vector<vertex_t> vertices;
-};
-```
-*mirrormod::vertex_t:*
-```cpp
-struct vertex_t
 {
 	std::vector<float> position;
 	std::vector<float> uv;

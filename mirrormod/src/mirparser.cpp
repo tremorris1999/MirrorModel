@@ -18,45 +18,37 @@ namespace mirrormod
 
 		std::stringstream loadedFileStream;
 		loadedFileStream << fileStream.rdbuf();
+		fileStream.close();
 
 		std::string line;
 		std::getline(loadedFileStream, line);
 
-		int num_meshes = std::stoi(line);
+		int num_mesh = std::stoi(line);
 		std::getline(loadedFileStream, line);
-		for (size_t m = 0; m < num_meshes; m++) 
+		for (size_t m = 0; m < num_mesh; m++) 
 		{
-			mesh_t mesh;
-			int num_vertices = std::stoi(line);
+			std::vector<float> position;
+			std::vector<float> uv;
+			std::vector<float> normal;
+
+			int num_position = std::stoi(line);
 			std::getline(loadedFileStream, line);
-			for (size_t v = 0; v < num_vertices; v++)
-			{
-				std::vector<float> positions;
-				std::vector<float> uvs;
-				std::vector<float> normals;
+			for (int i = 0; i < num_position; i++, std::getline(loadedFileStream, line))
+				position.push_back(std::stof(line));
 
-				int num_positions = std::stoi(line);
-				std::getline(loadedFileStream, line);
-				for (size_t p = 0; p < num_positions; p++, std::getline(loadedFileStream, line))
-					positions.push_back(std::stof(line));
+			int num_uv = std::stoi(line);
+			std::getline(loadedFileStream, line);
+			for (int i = 0; i < num_uv; i++, std::getline(loadedFileStream, line))
+				uv.push_back(std::stof(line));
 
-				int num_uvs = std::stoi(line);
-				std::getline(loadedFileStream, line);
-				for (size_t u = 0; u < num_uvs; u++, std::getline(loadedFileStream, line))
-					uvs.push_back(std::stof(line));
+			int num_normal = std::stoi(line);
+			std::getline(loadedFileStream, line);
+			for (int i = 0; i < num_normal; i++, std::getline(loadedFileStream, line))
+				normal.push_back(std::stof(line));
 
-				int num_normals = std::stoi(line);
-				std::getline(loadedFileStream, line);
-				for (size_t n = 0; n < num_normals; n++, std::getline(loadedFileStream, line))
-					normals.push_back(std::stof(line));
-
-				// parse
-			}
-
-			meshes.push_back(mesh);
+			meshes.push_back(mesh_t{position, uv, normal});
 		}
 
-		fileStream.close();
 		return true;
 	}
 }
