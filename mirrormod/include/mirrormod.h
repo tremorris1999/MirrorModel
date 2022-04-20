@@ -15,4 +15,5 @@ namespace mirrormod
 
 	bool parseMir(std::string path, std::vector<mesh_t> &meshes);
 	bool parseObj(std::string path, std::vector<mesh_t> &meshes);
+	bool parseGLTF(std::string path, std::vector<mesh_t> &meshes);
 }
