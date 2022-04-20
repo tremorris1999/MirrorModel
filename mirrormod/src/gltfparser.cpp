@@ -20,5 +20,7 @@ namespace mirrormod
 
         std::stringstream loadedFileStream;
         loadedFileStream << fileStream.rdbuf();
+
+        return false;
     }
 }
